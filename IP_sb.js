@@ -6,7 +6,7 @@
 
   **/
 // 城市英译中对照表（可直接整体替换原 cityCnMap）
-const cityCnMap = new Map([
+/*const cityCnMap = new Map([
 // —— 美国 ——
 ["Santa Clara","圣克拉拉"],["San Jose","圣何塞"],["Fremont","弗里蒙特"],
 ["San Francisco","旧金山"],["Los Angeles","洛杉矶"],["Palo Alto","帕洛阿尔托"],
@@ -55,7 +55,7 @@ const cityCnMap = new Map([
 let cityKey = bodyJson.city ? bodyJson.city.replace(/\b\w/g, c => c.toUpperCase()) : "";
 if(cityCnMap.has(cityKey)){
     bodyJson.city = cityCnMap.get(cityKey);
-}
+}*/
 
 // var content= `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold">` + response.body + `</p>`;
 
