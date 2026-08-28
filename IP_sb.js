@@ -5,8 +5,7 @@
   @XIAO_KOP
 
   **/
-
-const cityCnMap = new Map([
+var cityCnMap = new Map([
 // 美国
 ["Santa Clara","圣克拉拉"],["San Jose","圣何塞"],["Fremont","弗里蒙特"],
 ["San Francisco","旧金山"],["Los Angeles","洛杉矶"],["Palo Alto","帕洛阿尔托"],
