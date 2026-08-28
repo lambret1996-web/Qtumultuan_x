@@ -1,4 +1,4 @@
- /***
+/***
   [task_local]
   event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/geo_location.js, tag=GeoIP 查询, img-url=location.fill.viewfinder.system
   
@@ -6,41 +6,102 @@
 
   **/
 
+const cityCnMap = new Map([
+// 美国
+["Santa Clara","圣克拉拉"],["San Jose","圣何塞"],["Fremont","弗里蒙特"],
+["San Francisco","旧金山"],["Los Angeles","洛杉矶"],["Palo Alto","帕洛阿尔托"],
+["San Diego","圣迭戈"],["Sacramento","萨克拉门托"],
+["New York","纽约"],["Chicago","芝加哥"],["Seattle","西雅图"],["Dallas","达拉斯"],
+["Miami","迈阿密"],["Phoenix","凤凰城"],["Atlanta","亚特兰大"],["Denver","丹佛"],
+["Portland","波特兰"],["Houston","休斯顿"],["Boston","波士顿"],["Ashburn","阿什本"],
+["Las Vegas","拉斯维加斯"],["Tampa","坦帕"],["Kansas City","堪萨斯城"],
+["Minneapolis","明尼阿波利斯"],["Salt Lake City","盐湖城"],["Philadelphia","费城"],
+["Charlotte","夏洛特"],["Columbus","哥伦布"],["Detroit","底特律"],["Nashville","纳什维尔"],
+["Orlando","奥兰多"],["Newark","纽瓦克"],["St. Louis","圣路易斯"],["Oklahoma City","俄克拉何马城"],
+//亚洲
+["Tokyo","东京"],["Osaka","大阪"],["Fukuoka","福冈"],["Nagoya","名古屋"],
+["Hong Kong","香港"],["Singapore","新加坡"],["Seoul","首尔"],["Taipei","台北"],
+["Bangkok","曼谷"],["Kuala Lumpur","吉隆坡"],["Jakarta","雅加达"],
+["Mumbai","孟买"],["Bangalore","班加罗尔"],["Delhi","德里"],["Chennai","金奈"],
+["Hanoi","河内"],["Ho Chi Minh City","胡志明市"],["Manila","马尼拉"],
+["Islamabad","伊斯兰堡"],["Lahore","拉合尔"],["Dhaka","达卡"],["Colombo","科伦坡"],
+["Karachi","卡拉奇"],["Riyadh","利雅得"],["Dubai","迪拜"],["Tel Aviv","特拉维夫"],
+["Istanbul","伊斯坦布尔"],["Almaty","阿拉木图"],["Tashkent","塔什干"],
+//欧洲
+["London","伦敦"],["Manchester","曼彻斯特"],["Frankfurt","法兰克福"],
+["Amsterdam","阿姆斯特丹"],["Paris","巴黎"],["Madrid","马德里"],["Barcelona","巴塞罗那"],
+["Stockholm","斯德哥尔摩"],["Zurich","苏黎世"],["Warsaw","华沙"],["Milan","米兰"],
+["Vienna","维也纳"],["Bucharest","布加勒斯特"],["Lisbon","里斯本"],
+["Munich","慕尼黑"],["Berlin","柏林"],["Prague","布拉格"],["Brussels","布鲁塞尔"],
+["Copenhagen","哥本哈根"],["Oslo","奥斯陆"],["Helsinki","赫尔辛基"],
+["Dublin","都柏林"],["Athens","雅典"],["Budapest","布达佩斯"],["Riga","里加"],
+["Tallinn","塔林"],["Vilnius","维尔纽斯"],["Sofia","索菲亚"],["Zagreb","萨格勒布"],
+//大洋洲
+["Sydney","悉尼"],["Melbourne","墨尔本"],["Brisbane","布里斯班"],["Perth","珀斯"],
+["Auckland","奥克兰"],["Wellington","惠灵顿"],
+//加拿大
+["Toronto","多伦多"],["Vancouver","温哥华"],["Montreal","蒙特利尔"],
+["Calgary","卡尔加里"],["Ottawa","渥太华"],["Quebec City","魁北克城"],
+//拉美
+["Sao Paulo","圣保罗"],["Rio de Janeiro","里约热内卢"],["Buenos Aires","布宜诺斯艾利斯"],
+["Mexico City","墨西哥城"],["Santiago","圣地亚哥"],["Lima","利马"],["Bogota","波哥大"],
+["Montevideo","蒙得维的亚"],["Caracas","加拉加斯"],["Panama City","巴拿马城"],
+//其他
+["Moscow","莫斯科"],["Kyiv","基辅"],["Johannesburg","约翰内斯堡"],
+["Cape Town","开普敦"],["Cairo","开罗"],["Lagos","拉各斯"],["Nairobi","内罗毕"],
+["Tbilisi","第比利斯"],["Yerevan","埃里温"]
+]);
 
-  var url = "https://api.ip.sb/geoip"
-  var opts = {
-      policy: $environment.params
-  };
-  var myRequest = {
-      url: url,
-      opts: opts,
-      timeout: 4000
-  };
+var url = "https://api.ip.sb/geoip"
+var opts = {
+    policy: $environment.params
+};
+var myRequest = {
+    url: url,
+    opts: opts,
+    timeout: 4000
+};
  
-  var message = ""
-  const paras = ["ip","isp","country_code","city","offset"]
-  const paran = ["IP地址","ISP提供商","地区","城市","时区"]
-  $task.fetch(myRequest).then(response => {
-    message = response? json2info(response.body,paras) : ""
-      $done({"title": "    🔎 你的节点查询结果", "htmlMessage": message});
-  }, reason => {
+var message = ""
+const paras = ["ip","isp","country_code","city","offset"]
+const paran = ["IP地址","ISP提供商","地区","城市","时区"]
+$task.fetch(myRequest).then(response => {
+    let cnt = JSON.parse(response.body);
+    //国家代码+名称
+    cnt.country_code = cnt.country_code + " ⟦"+flags.get(cnt.country_code.toUpperCase())+"⟧";
+    //城市匹配：全部转小写比对，避免大小写坑
+    if(cnt.city){
+        let lowerCity = cnt.city.toLowerCase();
+        //遍历map，小写对比
+        let found = false;
+        for(let [en,cn] of cityCnMap){
+            if(en.toLowerCase() === lowerCity){
+                cnt.city = cn;
+                found = true;
+                break;
+            }
+        }
+        //没匹配到就保留原值
+    }
+    message = json2info(cnt,paras)
+    $done({"title": "    🔎 该节点查询结果", "htmlMessage": message});
+}, reason => {
     message = "</br></br>🛑 查询超时稍后再试"
     message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
       $done({"title": "🔎 该节点查询结果", "htmlMessage": message});
-  })
+})
 
 
 function json2info(cnt,paras) {
   var res = "------------------------------"
-  cnt =JSON.parse(cnt)
-  for (i=0;i<paras.length;i++) {
-    cnt[paras[i]] = paras[i] == "country_code"? cnt[paras[i]]+" ⟦"+flags.get(cnt[paras[i]].toUpperCase())+"⟧":cnt[paras[i]]
+  for (let i=0;i<paras.length;i++) {
     res = cnt[paras[i]]?   res +"</br><b>"+ "<font  color=>" +paran[i] + "</font> : " + "</b>"+ "<font  color=>"+cnt[paras[i]] +"</font></br>" : res
   }
   res =res+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
   res =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + res + `</p>`
   return res
 }
+
 
 var flags = new Map([
 ["AC","阿森松岛"],
@@ -160,5 +221,4 @@ var flags = new Map([
 ["VI","美属维尔京群岛"],
 ["VN","越南"],
 ["ZA","南非"]
- 
 ]);
