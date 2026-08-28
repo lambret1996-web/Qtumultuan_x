@@ -5,8 +5,45 @@
   @XIAO_KOP
 
   **/
+
+// var content= `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold">` + response.body + `</p>`;
+
+  var url = "https://api.ip.sb/geoip"
+  var opts = {
+      policy: $environment.params
+  };
+  var myRequest = {
+      url: url,
+      opts: opts,
+      timeout: 4000
+  };
+ 
+  var message = ""
+  const paras = ["ip","isp","country_code","city","offset"]
+  const paran = ["IP地址","ISP提供商","地区","城市","时区"]
+  $task.fetch(myRequest).then(response => {
+    message = response? json2info(response.body,paras) : ""
+      $done({"title": "    🔎 你的节点查询结果", "htmlMessage": message});
+  }, reason => {
+    message = "</br></br>🛑 查询超时稍后再试"
+    message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
+      $done({"title": "🔎 该节点查询结果", "htmlMessage": message});
+  })
+
+
+function json2info(cnt,paras) {
+  var res = "------------------------------"
+  cnt =JSON.parse(cnt)
+  for (i=0;i<paras.length;i++) {
+    cnt[paras[i]] = paras[i] == "country_code"? cnt[paras[i]]+" ⟦"+flags.get(cnt[paras[i]].toUpperCase())+"⟧":cnt[paras[i]]
+    res = cnt[paras[i]]?   res +"</br><b>"+ "<font  color=>" +paran[i] + "</font> : " + "</b>"+ "<font  color=>"+cnt[paras[i]] +"</font></br>" : res
+  }
+  res =res+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
+  res =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + res + `</p>`
+  return res
+}
 // 城市英译中对照表（可直接整体替换原 cityCnMap）
-/*const cityCnMap = new Map([
+var cityCnMap = new Map([
 // —— 美国 ——
 ["Santa Clara","圣克拉拉"],["San Jose","圣何塞"],["Fremont","弗里蒙特"],
 ["San Francisco","旧金山"],["Los Angeles","洛杉矶"],["Palo Alto","帕洛阿尔托"],
@@ -52,48 +89,10 @@
 ["Istanbul","伊斯坦布尔"],["Tbilisi","第比利斯"],["Yerevan","埃里温"]
 ]);
 // 城市翻译：先统一格式再查表，不存在就原样输出英文
-let cityKey = bodyJson.city ? bodyJson.city.replace(/\b\w/g, c => c.toUpperCase()) : "";
+//let cityKey = bodyJson.city ? bodyJson.city.replace(/\b\w/g, c => c.toUpperCase()) : "";
 if(cityCnMap.has(cityKey)){
     bodyJson.city = cityCnMap.get(cityKey);
-}*/
-
-// var content= `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold">` + response.body + `</p>`;
-
-  var url = "https://api.ip.sb/geoip"
-  var opts = {
-      policy: $environment.params
-  };
-  var myRequest = {
-      url: url,
-      opts: opts,
-      timeout: 4000
-  };
- 
-  var message = ""
-  const paras = ["ip","isp","country_code","city","offset"]
-  const paran = ["IP地址","ISP提供商","地区","城市","时区"]
-  $task.fetch(myRequest).then(response => {
-    message = response? json2info(response.body,paras) : ""
-      $done({"title": "    🔎 你的节点查询结果", "htmlMessage": message});
-  }, reason => {
-    message = "</br></br>🛑 查询超时稍后再试"
-    message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
-      $done({"title": "🔎 该节点查询结果", "htmlMessage": message});
-  })
-
-
-function json2info(cnt,paras) {
-  var res = "------------------------------"
-  cnt =JSON.parse(cnt)
-  for (i=0;i<paras.length;i++) {
-    cnt[paras[i]] = paras[i] == "country_code"? cnt[paras[i]]+" ⟦"+flags.get(cnt[paras[i]].toUpperCase())+"⟧":cnt[paras[i]]
-    res = cnt[paras[i]]?   res +"</br><b>"+ "<font  color=>" +paran[i] + "</font> : " + "</b>"+ "<font  color=>"+cnt[paras[i]] +"</font></br>" : res
-  }
-  res =res+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
-  res =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + res + `</p>`
-  return res
 }
-
 
 var flags = new Map([
 ["AC","阿森松岛"],
