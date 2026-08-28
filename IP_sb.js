@@ -162,4 +162,51 @@ var flags = new Map([
 ["VI","美属维尔京群岛"],
 ["VN","越南"],
 ["ZA","南非"]
+ 
+]);
+// 城市英译中对照表（可直接整体替换原 cityCnMap）
+const cityCnMap = new Map([
+// —— 美国 ——
+["Santa Clara","圣克拉拉"],["San Jose","圣何塞"],["Fremont","弗里蒙特"],
+["San Francisco","旧金山"],["Los Angeles","洛杉矶"],["Palo Alto","帕洛阿尔托"],
+["San Diego","圣迭戈"],["Sacramento","萨克拉门托"],
+["New York","纽约"],["Chicago","芝加哥"],["Seattle","西雅图"],["Dallas","达拉斯"],
+["Miami","迈阿密"],["Phoenix","凤凰城"],["Atlanta","亚特兰大"],["Denver","丹佛"],
+["Portland","波特兰"],["Houston","休斯顿"],["Boston","波士顿"],["Ashburn","阿什本"],
+["Las Vegas","拉斯维加斯"],["Tampa","坦帕"],["Kansas City","堪萨斯城"],
+["Minneapolis","明尼阿波利斯"],["Salt Lake City","盐湖城"],["Philadelphia","费城"],
+["Charlotte","夏洛特"],["Columbus","哥伦布"],["Detroit","底特律"],["Nashville","纳什维尔"],
+["Orlando","奥兰多"],["Newark","纽瓦克"],["St. Louis","圣路易斯"],["Oklahoma City","俄克拉何马城"],
+// —— 亚洲 ——
+["Tokyo","东京"],["Osaka","大阪"],["Fukuoka","福冈"],["Nagoya","名古屋"],
+["Hong Kong","香港"],["Singapore","新加坡"],["Seoul","首尔"],["Taipei","台北"],
+["Bangkok","曼谷"],["Kuala Lumpur","吉隆坡"],["Jakarta","雅加达"],
+["Mumbai","孟买"],["Bangalore","班加罗尔"],["Delhi","德里"],["Chennai","金奈"],
+["Hanoi","河内"],["Ho Chi Minh City","胡志明市"],["Manila","马尼拉"],
+["Islamabad","伊斯兰堡"],["Lahore","拉合尔"],["Dhaka","达卡"],["Colombo","科伦坡"],
+["Karachi","卡拉奇"],["Riyadh","利雅得"],["Dubai","迪拜"],["Tel Aviv","特拉维夫"],
+["Istanbul","伊斯坦布尔"],["Almaty","阿拉木图"],["Tashkent","塔什干"],
+// —— 欧洲 ——
+["London","伦敦"],["Manchester","曼彻斯特"],["Frankfurt","法兰克福"],
+["Amsterdam","阿姆斯特丹"],["Paris","巴黎"],["Madrid","马德里"],["Barcelona","巴塞罗那"],
+["Stockholm","斯德哥尔摩"],["Zurich","苏黎世"],["Warsaw","华沙"],["Milan","米兰"],
+["Vienna","维也纳"],["Bucharest","布加勒斯特"],["Lisbon","里斯本"],
+["Munich","慕尼黑"],["Berlin","柏林"],["Prague","布拉格"],["Brussels","布鲁塞尔"],
+["Copenhagen","哥本哈根"],["Oslo","奥斯陆"],["Helsinki","赫尔辛基"],
+["Dublin","都柏林"],["Athens","雅典"],["Budapest","布达佩斯"],["Riga","里加"],
+["Tallinn","塔林"],["Vilnius","维尔纽斯"],["Sofia","索菲亚"],["Zagreb","萨格勒布"],
+// —— 大洋洲 ——
+["Sydney","悉尼"],["Melbourne","墨尔本"],["Brisbane","布里斯班"],["Perth","珀斯"],
+["Auckland","奥克兰"],["Wellington","惠灵顿"],
+// —— 加拿大 ——
+["Toronto","多伦多"],["Vancouver","温哥华"],["Montreal","蒙特利尔"],
+["Calgary","卡尔加里"],["Ottawa","渥太华"],["Quebec City","魁北克城"],
+// —— 拉美 ——
+["Sao Paulo","圣保罗"],["Rio de Janeiro","里约热内卢"],["Buenos Aires","布宜诺斯艾利斯"],
+["Mexico City","墨西哥城"],["Santiago","圣地亚哥"],["Lima","利马"],["Bogota","波哥大"],
+["Montevideo","蒙得维的亚"],["Caracas","加拉加斯"],["Panama City","巴拿马城"],
+// —— 其他 ——
+["Moscow","莫斯科"],["Kyiv","基辅"],["Johannesburg","约翰内斯堡"],
+["Cape Town","开普敦"],["Cairo","开罗"],["Lagos","拉各斯"],["Nairobi","内罗毕"],
+["Istanbul","伊斯坦布尔"],["Tbilisi","第比利斯"],["Yerevan","埃里温"]
 ]);
