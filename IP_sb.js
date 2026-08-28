@@ -5,7 +5,75 @@
   @XIAO_KOP
 
   **/
-var cityCnMap = new Map([
+var cityCnMap = new Map({
+  "Ashburn":"阿什本",
+  "Atlanta":"亚特兰大",
+  "Boston":"波士顿",
+  "Chicago":"芝加哥",
+  "Dallas":"达拉斯",
+  "Denver":"丹佛",
+  "Fremont":"弗里蒙特",
+  "Houston":"休斯顿",
+  "Las Vegas":"拉斯维加斯",
+  "Los Angeles":"洛杉矶",
+  "Miami":"迈阿密",
+  "Minneapolis":"明尼阿波利斯",
+  "New York":"纽约",
+  "Phoenix":"凤凰城",
+  "Portland":"波特兰",
+  "Salt Lake City":"盐湖城",
+  "San Clara":"圣克拉拉",
+  "San Diego":"圣迭戈",
+  "San Francisco":"旧金山",
+  "San Jose":"圣何塞",
+  "Seattle":"西雅图",
+  "Tampa":"坦帕",
+  "Tokyo":"东京",
+  "Osaka":"大阪",
+  "Fukuoka":"福冈",
+  "Nagoya":"名古屋",
+  "Sapporo":"札幌",
+  "Kobe":"神户",
+  "Kyoto":"京都",
+  "Singapore":"新加坡",
+  "Berlin":"柏林",
+  "Frankfurt":"法兰克福",
+  "Munich":"慕尼黑",
+  "Hamburg":"汉堡",
+  "Cologne":"科隆",
+  "Düsseldorf":"杜塞尔多夫",
+  "Nuremberg":"纽伦堡",
+  "London":"伦敦",
+  "Manchester":"曼彻斯特",
+  "Birmingham":"伯明翰",
+  "Liverpool":"利物浦",
+  "Edinburgh":"爱丁堡",
+  "Seoul":"首尔",
+  "Busan":"釜山",
+  "Incheon":"仁川",
+  "Daegu":"大邱",
+  "Toronto":"多伦多",
+  "Vancouver":"温哥华",
+  "Montreal":"蒙特利尔",
+  "Calgary":"卡尔加里",
+  "Ottawa":"渥太华",
+  "Paris":"巴黎",
+  "Lyon":"里昂",
+  "Marseille":"马赛",
+  "Nice":"尼斯",
+  "Milan":"米兰",
+  "Rome":"罗马",
+  "Naples":"那不勒斯",
+  "Turin":"都灵",
+  "Florence":"佛罗伦萨",
+  "Amsterdam":"阿姆斯特丹",
+  "Rotterdam":"鹿特丹",
+  "The Hague":"海牙",
+  "Utrecht":"乌得勒支"
+}
+  
+  
+  /*[
 // 美国
 ["Santa Clara","圣克拉拉"],["San Jose","圣何塞"],["Fremont","弗里蒙特"],
 ["San Francisco","旧金山"],["Los Angeles","洛杉矶"],["Palo Alto","帕洛阿尔托"],
@@ -49,7 +117,9 @@ var cityCnMap = new Map([
 ["Moscow","莫斯科"],["Kyiv","基辅"],["Johannesburg","约翰内斯堡"],
 ["Cape Town","开普敦"],["Cairo","开罗"],["Lagos","拉各斯"],["Nairobi","内罗毕"],
 ["Tbilisi","第比利斯"],["Yerevan","埃里温"]
-]);
+]*/
+
+);
 
 var url = "https://api.ip.sb/geoip"
 var opts = {
