@@ -23,11 +23,11 @@
   const paran = ["IP","ISP","地区","城市","时区"]
   $task.fetch(myRequest).then(response => {
     message = response? json2info(response.body,paras) : ""
-      $done({"title": "    🔎 IP.SB 查询结果", "htmlMessage": message});
+      $done({"title": "    🔎 该节点查询结果", "htmlMessage": message});
   }, reason => {
-    message = "</br></br>🛑 查询超时"
+    message = "</br></br>🛑 查询超时稍后再试"
     message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
-      $done({"title": "🔎 IP.SB 查询结果", "htmlMessage": message});
+      $done({"title": "🔎 该节点查询结果", "htmlMessage": message});
   })
 
 
