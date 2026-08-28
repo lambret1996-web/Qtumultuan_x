@@ -23,7 +23,7 @@
   const paran = ["IP地址","ISP提供商","地区","城市","时区"]
   $task.fetch(myRequest).then(response => {
     message = response? json2info(response.body,paras) : ""
-      $done({"title": "    🔎 该节点查询结果", "htmlMessage": message});
+      $done({"title": "    🔎 你的节点查询结果", "htmlMessage": message});
   }, reason => {
     message = "</br></br>🛑 查询超时稍后再试"
     message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
@@ -210,3 +210,8 @@ const cityCnMap = new Map([
 ["Cape Town","开普敦"],["Cairo","开罗"],["Lagos","拉各斯"],["Nairobi","内罗毕"],
 ["Istanbul","伊斯坦布尔"],["Tbilisi","第比利斯"],["Yerevan","埃里温"]
 ]);
+// 城市翻译：先统一格式再查表，不存在就原样输出英文
+let cityKey = bodyJson.city ? bodyJson.city.replace(/\b\w/g, c => c.toUpperCase()) : "";
+if(cityCnMap.has(cityKey)){
+    bodyJson.city = cityCnMap.get(cityKey);
+}
